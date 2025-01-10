@@ -3,61 +3,63 @@ import React from "react";
 const Register = () => {
   return (
     <div
-      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-400 to-purple-500"
+      className="min-h-screen flex items-center justify-center bg-cover bg-center"
       style={{
-        backgroundImage: 'url("https://source.unsplash.com/random/1920x1080/?pattern,abstract")',
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundImage:
+          'url("https://images.unsplash.com/photo-1675897634504-bf03f1a2a66a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
       }}
     >
-      <div className="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full">
-        <h2 className="text-3xl font-bold text-indigo-600 text-center mb-6">
+      {/* Fixed Register Card */}
+      <div className="fixed top-0 right-0 h-full w-96 bg-white shadow-lg flex flex-col justify-center px-8">
+        <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">
           Register
         </h2>
-        <form className="space-y-4">
+        <form className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Full Name
-            </label>
             <input
               type="text"
-              className="w-full px-3 py-2 border rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              placeholder="Enter your full name"
+              className="w-full px-1 py-2 border-b border-gray-300 focus:outline-none focus:ring-0 focus:border-indigo-500 text-gray-900 placeholder-gray-500"
+              placeholder="Full Name"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Email
-            </label>
             <input
               type="email"
-              className="w-full px-3 py-2 border rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              placeholder="Enter your email"
+              className="w-full px-1 py-2 border-b border-gray-300 focus:outline-none focus:ring-0 focus:border-indigo-500 text-gray-900 placeholder-gray-500"
+              placeholder="Email"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Password
-            </label>
             <input
               type="password"
-              className="w-full px-3 py-2 border rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              placeholder="Enter your password"
+              className="w-full px-1 py-2 border-b border-gray-300 focus:outline-none focus:ring-0 focus:border-indigo-500 text-gray-900 placeholder-gray-500"
+              placeholder="Password"
             />
           </div>
           <button
             type="submit"
-            className="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 transition"
+            className="w-full bg-indigo-600 text-white py-3 rounded-md hover:bg-indigo-700 transition"
           >
             Register
           </button>
         </form>
-        <p className="text-center text-sm text-gray-600 mt-4">
+        <p className="text-center text-sm text-gray-600 mt-6">
           Already have an account?{" "}
           <a href="/login" className="text-indigo-600 hover:underline">
             Login
           </a>
         </p>
+      </div>
+
+      {/* Main Background Content */}
+      <div className="mr-96 w-full h-full flex items-center justify-center px-6">
+        <div className="text-center text-white">
+          <h1 className="text-5xl font-bold mb-4">Join Our Community</h1>
+          <p className="text-lg max-w-2xl mx-auto">
+            Discover new opportunities and connect with others by creating an
+            account today.
+          </p>
+        </div>
       </div>
     </div>
   );

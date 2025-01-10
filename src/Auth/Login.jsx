@@ -1,69 +1,60 @@
 import React from "react";
-import MM from "../assets/vector.jpg";
 import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
     <div
-      className="min-h-screen flex items-center justify-center"
+      className="min-h-screen flex items-center justify-center bg-cover bg-center"
       style={{
-        backgroundImage: `url(${MM})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundImage:
+          'url("https://images.unsplash.com/photo-1675897634504-bf03f1a2a66a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
       }}
     >
-      <div
-        className="bg-white bg-opacity-30 backdrop-blur-lg shadow-lg p-6 max-w-sm w-full"
-      >
-        <h2 className="text-2xl font-bold text-gray-800 text-center mb-4">
-          Login
+      {/* Fixed Login Card */}
+      <div className="fixed top-0 left-0 h-full w-96 bg-white shadow-lg flex flex-col justify-center px-8">
+        <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">
+          Welcome Back
         </h2>
-        <form className="space-y-4">
+        <form className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Email
-            </label>
             <input
+              id="email"
               type="email"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-1 py-2 border-b border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-500 text-gray-900 placeholder-gray-500"
               placeholder="Enter your email"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Password
-            </label>
             <input
+              id="password"
               type="password"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-1 py-2 border-b border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-500 text-gray-900 placeholder-gray-500"
               placeholder="Enter your password"
             />
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+            className="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition"
           >
             Login
           </button>
         </form>
-        <div className="mt-4">
-          <button
-            className="w-full flex items-center justify-center bg-red-500 text-white py-2 rounded-md hover:bg-red-600 transition"
-          >
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
-              alt="Google"
-              className="w-5 h-5 mr-2"
-            />
-            Login with Google
-          </button>
-        </div>
-        <p className="text-center text-sm text-gray-600 mt-4">
+        <p className="text-center text-sm text-gray-600 mt-6">
           Don't have an account?{" "}
-          <Link to='/register' className="hover:underline" >
-          Register
+          <Link to="/register" className="hover:underline text-blue-600">
+            Register
           </Link>
         </p>
+      </div>
+
+      {/* Main Background Content */}
+      <div className="ml-96 w-full h-full flex items-center justify-center px-6">
+        <div className="text-center text-white">
+          <h1 className="text-5xl font-bold mb-4">Welcome to Our Platform</h1>
+          <p className="text-lg max-w-2xl mx-auto">
+            Explore amazing features and connect with people like never before.
+          </p>
+        </div>
       </div>
     </div>
   );
