@@ -1,7 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios"; // Ensure axios is imported
+import { API_ENDPOINT } from "../services/ApiEndPoint";
 
 const Login = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [token, setToken] = useState(null);
+
+  const handleAuth = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    setSuccess(false);
+    setToken(null);
+  
+    if (!username || !password) {
+      setError("Username and password are required.");
+      setLoading(false);
+      return;
+    }
+  
+    try {
+      const loginUrl = `${API_ENDPOINT.Login_User}?username=${encodeURIComponent(
+        username
+      )}&password=${encodeURIComponent(password)}`;
+  
+      console.log("Sending request to:", loginUrl);
+  
+      // Send the GET request
+      const response = await axios.post(loginUrl, {
+        headers: {
+          Accept: "application/json",
+        },
+      });
+  
+      console.log("Response:", response);
+  
+      // Handle success
+      setToken(response.data.token);
+      setSuccess(true);
+    } catch (error) {
+      console.error("Error occurred:", error);
+  
+      // Extract and display detailed error information
+      const errorMessage =
+        error.response?.data?.message || "Invalid credentials or server error.";
+      setError(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  
+
   return (
     <div
       className="min-h-screen flex items-center justify-center bg-cover bg-center"
@@ -15,13 +70,15 @@ const Login = () => {
         <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">
           Welcome Back
         </h2>
-        <form className="space-y-6">
+        <form onSubmit={handleAuth} className="space-y-6">
           <div>
             <input
-              id="email"
-              type="email"
+              id="username"
+              type="text"
               className="w-full px-1 py-2 border-b border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-500 text-gray-900 placeholder-gray-500"
-              placeholder="Enter your email"
+              placeholder="Enter your username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
           <div>
@@ -30,15 +87,24 @@ const Login = () => {
               type="password"
               className="w-full px-1 py-2 border-b border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-500 text-gray-900 placeholder-gray-500"
               placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition"
+            disabled={loading}
+            className={`w-full py-3 rounded-md ${
+              loading
+                ? "bg-gray-500 cursor-not-allowed"
+                : "bg-blue-600 hover:bg-blue-700"
+            } text-white transition`}
           >
-            Login
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
+        {error && <p className="text-red-500 mt-4">{error}</p>}
+        {success && <p className="text-green-500 mt-4">Login successful!</p>}
         <p className="text-center text-sm text-gray-600 mt-6">
           Don't have an account?{" "}
           <Link to="/register" className="hover:underline text-blue-600">

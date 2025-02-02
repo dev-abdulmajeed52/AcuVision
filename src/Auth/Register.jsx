@@ -1,6 +1,67 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import { API_ENDPOINT } from "../services/ApiEndPoint";
 
 const Register = () => {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("company"); // Default role is "company"
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [token, setToken] = useState(null);
+
+  const handleAuth = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    setSuccess(false);
+    setToken(null);
+
+    if (!username || !password || !email) {
+      setError("Username, email, and password are required.");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const registerUrl = `${API_ENDPOINT.Register_user}`;
+
+      const response = await axios.post(
+        registerUrl,
+        {
+          username,
+          email,
+          password,
+          role,
+          is_active: true, // Set the active status to true
+        },
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("Response:", response);
+
+      // Handle success
+      setToken(response.data.token);
+      setSuccess(true);
+    } catch (error) {
+      console.error("Error occurred:", error);
+
+      // Extract and display detailed error information
+      const errorMessage =
+        error.response?.data?.message || "Registration error or server issue.";
+      setError(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div
       className="min-h-screen flex items-center justify-center bg-cover bg-center"
@@ -14,12 +75,14 @@ const Register = () => {
         <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">
           Register
         </h2>
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={handleAuth}>
           <div>
             <input
               type="text"
               className="w-full px-1 py-2 border-b border-gray-300 focus:outline-none focus:ring-0 focus:border-indigo-500 text-gray-900 placeholder-gray-500"
-              placeholder="Full Name"
+              placeholder="User Name"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
           <div>
@@ -27,6 +90,8 @@ const Register = () => {
               type="email"
               className="w-full px-1 py-2 border-b border-gray-300 focus:outline-none focus:ring-0 focus:border-indigo-500 text-gray-900 placeholder-gray-500"
               placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div>
@@ -34,7 +99,19 @@ const Register = () => {
               type="password"
               className="w-full px-1 py-2 border-b border-gray-300 focus:outline-none focus:ring-0 focus:border-indigo-500 text-gray-900 placeholder-gray-500"
               placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
+          </div>
+          <div>
+            <select
+              className="w-full px-1 py-2 border-b border-gray-300 focus:outline-none focus:ring-0 focus:border-indigo-500 text-gray-900"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+            >
+              <option value="company">Company</option>
+              <option value="candidate">Candidate</option>
+            </select>
           </div>
           <button
             type="submit"
