@@ -15,7 +15,7 @@ const App = () => {
       <Route index element={<Home />} />
       <Route path="/prep" element={<PrepTips />} />
       <Route path="/mock" element={<CallToAction />} />
-      <Route path="/IAM" element={<Role />} />
+      <Route path="/iam" element={<Role />} />
       <Route path='/login' element={<Login />} />
       <Route path='register' element={<Register />} />
     </Routes>
