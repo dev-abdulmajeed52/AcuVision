@@ -30,8 +30,6 @@ const Login = () => {
       )}&password=${encodeURIComponent(password)}`;
   
       console.log("Sending request to:", loginUrl);
-  
-      // Send the GET request
       const response = await axios.post(loginUrl, {
         headers: {
           Accept: "application/json",

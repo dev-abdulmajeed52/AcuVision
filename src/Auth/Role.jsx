@@ -3,11 +3,10 @@ import React, { useState, useEffect } from 'react';
 const Role = () => {
   const [selectedRole, setSelectedRole] = useState('Candidate');
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false); // State to track if component has loaded
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const roles = ['Company', 'Candidate'];
 
-  // Trigger animation after component mounts
   useEffect(() => {
     setIsLoaded(true);
   }, []);
@@ -55,7 +54,7 @@ const Role = () => {
             </div>
           )}
         </div>
-        <button className="bg-[#f0f2ff] text-black px-6 py-3 hover:bg-[#6366f1] hover:text-white transition duration-300">
+        <button  className="bg-[#f0f2ff] text-black px-6 py-3 hover:bg-[#6366f1] hover:text-white transition duration-300">
           Go
         </button>
       </div>

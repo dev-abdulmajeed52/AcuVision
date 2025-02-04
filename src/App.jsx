@@ -6,6 +6,8 @@ import Register from './Auth/Register'
 import PrepTips from './ui/PrepTips'
 import CallToAction from './ui/CallToAction'
 import Role from './Auth/Role'
+import MockInterview from './pages/MockInterview'
+import BeforeStart from './pages/BeforeStart'
 
 const App = () => {
   return (
@@ -13,9 +15,9 @@ const App = () => {
     <BrowserRouter>
     <Routes>
       <Route index element={<Home />} />
-      <Route path="/prep" element={<PrepTips />} />
-      <Route path="/mock" element={<CallToAction />} />
       <Route path="/iam" element={<Role />} />
+      <Route path="/before" element={<BeforeStart />} />
+      <Route path='/mockinterview' element={<MockInterview />}/>
       <Route path='/login' element={<Login />} />
       <Route path='register' element={<Register />} />
     </Routes>
