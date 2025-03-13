@@ -1,59 +1,47 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios"; // Ensure axios is imported
-import { API_ENDPOINT } from "../services/ApiEndPoint";
+import { Link, useNavigate } from "react-router-dom";
+import api from "../services/api";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [token, setToken] = useState(null);
+  const navigate = useNavigate();
 
   const handleAuth = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    setSuccess(false);
-    setToken(null);
-  
-    if (!username || !password) {
-      setError("Username and password are required.");
-      setLoading(false);
-      return;
-    }
-  
     try {
-      const loginUrl = `${API_ENDPOINT.Login_User}?username=${encodeURIComponent(
-        username
-      )}&password=${encodeURIComponent(password)}`;
-  
-      console.log("Sending request to:", loginUrl);
-      const response = await axios.post(loginUrl, {
-        headers: {
-          Accept: "application/json",
-        },
-      });
-  
-      console.log("Response:", response);
-  
-      // Handle success
-      setToken(response.data.token);
-      setSuccess(true);
+      const response = await api.post("/login", { email, password });
+      if (response.status === 200) {
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("name", response.data.name);
+        localStorage.setItem("email", response.data.email);
+        const { role, message } = response.data.user;
+
+        toast.success(message || "Login successful!", { position: "top-right" });
+
+        if (role === "company") {
+          navigate("/companyform");
+        } else if (role === "candidate") {
+          navigate("/candidateform");
+        } else {
+          navigate("/login");
+        }
+      }
     } catch (error) {
-      console.error("Error occurred:", error);
-  
-      // Extract and display detailed error information
-      const errorMessage =
-        error.response?.data?.message || "Invalid credentials or server error.";
-      setError(errorMessage);
+      toast.error(error.response?.data?.message || "Login failed!", {
+        position: "top-right",
+      });
+      setError(error.message);
     } finally {
       setLoading(false);
     }
   };
-  
-  
 
   return (
     <div
@@ -63,7 +51,7 @@ const Login = () => {
           'url("https://images.unsplash.com/photo-1675897634504-bf03f1a2a66a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
       }}
     >
-      {/* Fixed Login Card */}
+      <ToastContainer />
       <div className="fixed top-0 left-0 h-full w-96 bg-white shadow-lg flex flex-col justify-center px-8">
         <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">
           Welcome Back
@@ -71,12 +59,12 @@ const Login = () => {
         <form onSubmit={handleAuth} className="space-y-6">
           <div>
             <input
-              id="username"
+              id="email"
               type="text"
               className="w-full px-1 py-2 border-b border-gray-300 focus:outline-none focus:ring-0 focus:border-blue-500 text-gray-900 placeholder-gray-500"
-              placeholder="Enter your username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div>
@@ -101,17 +89,13 @@ const Login = () => {
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
-        {error && <p className="text-red-500 mt-4">{error}</p>}
-        {success && <p className="text-green-500 mt-4">Login successful!</p>}
         <p className="text-center text-sm text-gray-600 mt-6">
           Don't have an account?{" "}
-          <Link to="/register" className="hover:underline text-blue-600">
+          <Link to="/iam" className="hover:underline text-blue-600">
             Register
           </Link>
         </p>
       </div>
-
-      {/* Main Background Content */}
       <div className="ml-96 w-full h-full flex items-center justify-center px-6">
         <div className="text-center text-white">
           <h1 className="text-5xl font-bold mb-4">Welcome to Our Platform</h1>

@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const Role = () => {
   const [selectedRole, setSelectedRole] = useState('Candidate');
   const [isOpen, setIsOpen] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const roles = ['Company', 'Candidate'];
+  const roles = ['candidate', 'company'];
 
   useEffect(() => {
     setIsLoaded(true);
   }, []);
+  const handleRoleSelect = (role) => {
+    setSelectedRole(role);
+    localStorage.setItem('selectedRole', role);
+    setIsOpen(false);
+  };
 
   return (
     <div className="flex justify-center items-center h-screen bg-[#f0f2ff]">
@@ -42,10 +48,7 @@ const Role = () => {
               {roles.map((role) => (
                 <div
                   key={role}
-                  onClick={() => {
-                    setSelectedRole(role);
-                    setIsOpen(false);
-                  }}
+                  onClick={() => handleRoleSelect(role)}
                   className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-gray-700"
                 >
                   {role}
@@ -54,9 +57,9 @@ const Role = () => {
             </div>
           )}
         </div>
-        <button  className="bg-[#f0f2ff] text-black px-6 py-3 hover:bg-[#6366f1] hover:text-white transition duration-300">
+        <Link to="/register" className="bg-[#f0f2ff] text-black px-6 py-3 hover:bg-[#6366f1] hover:text-white transition duration-300">
           Go
-        </button>
+        </Link>
       </div>
     </div>
   );
