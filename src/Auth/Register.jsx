@@ -25,7 +25,6 @@ const Register = () => {
     setLoading(true);
     setError(null);
     setSuccess(false);
-
     try {
       const response = await api.post("/register", {
         name,
@@ -33,14 +32,20 @@ const Register = () => {
         password,
         role,
       });
-      const { token, role: userRole } = response.data;
+      const { token } = response.data;
       localStorage.setItem("token", token);
-      localStorage.setItem("role", userRole);
+      localStorage.setItem("role", response.data.user.role);
       localStorage.setItem("name", name);
-
+  
+      // Log the localStorage data after it's stored
+      console.log("Stored localStorage data:");
+      console.log("Token:", localStorage.getItem("token"));
+      console.log("Role:", localStorage.getItem("role"));
+      console.log("Name:", localStorage.getItem("name"));
+  
       setSuccess(true);
       toast.success("Registration successful!");
-      if (userRole === "candidate") {
+      if (role === "candidate") { // Fixed undefined variable `userRole` to `role`
         navigate("/candidateform");
       } else {
         navigate("/companyform");
@@ -52,6 +57,7 @@ const Register = () => {
       setLoading(false);
     }
   };
+  
 
   return (
     <div

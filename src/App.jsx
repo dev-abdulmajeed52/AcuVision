@@ -10,6 +10,10 @@ import MockInterview from './pages/MockInterview';
 import BeforeStart from './pages/BeforeStart';
 import CompanyForm from './components/CompanyForm';
 import CandidateForm from './components/CandidateForm';
+import DashboardLayout from './company/DashboardLayout';
+import CompanyHome from './company/CompanyHome';
+import ProtectedRoute from './components/ProtectedRoute';
+import Profile from './pages/Profile';
 
 const App = () => {
   return (
@@ -24,6 +28,14 @@ const App = () => {
           <Route path='/register' element={<Register />} />
           <Route path="/companyform" element={<CompanyForm />} />
           <Route path="/candidateform" element={<CandidateForm />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path='/company/*' element={
+            <ProtectedRoute>
+              <DashboardLayout/>
+            </ProtectedRoute>
+            } >
+            <Route index element={<CompanyHome />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>

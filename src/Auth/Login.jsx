@@ -19,16 +19,15 @@ const Login = () => {
       const response = await api.post("/login", { email, password });
       if (response.status === 200) {
         localStorage.setItem("token", response.data.token);
-        localStorage.setItem("name", response.data.name);
-        localStorage.setItem("email", response.data.email);
+        localStorage.setItem("name", response.data.user.name);
+        localStorage.setItem("email", response.data.user.email);
         const { role, message } = response.data.user;
-
         toast.success(message || "Login successful!", { position: "top-right" });
 
         if (role === "company") {
-          navigate("/companyform");
+          navigate("/company");
         } else if (role === "candidate") {
-          navigate("/candidateform");
+          navigate("/");
         } else {
           navigate("/login");
         }

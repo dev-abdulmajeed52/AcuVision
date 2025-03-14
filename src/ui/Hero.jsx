@@ -2,11 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Hero = () => {
-  const [isLoaded, setIsLoaded] = useState(false); // State to track if component has loaded
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState(false); // Track auth state
 
-  // Trigger animation after component mounts
   useEffect(() => {
     setIsLoaded(true);
+
+    const checkAuthorization = () => {
+      const token = localStorage.getItem("token");
+      setIsAuthorized(!!token); // Set auth state based on token presence
+    };
+
+    checkAuthorization();
   }, []);
 
   return (
@@ -25,10 +32,10 @@ const Hero = () => {
               Revolutionize your job search with our AI-powered platform! Get matched with top employers, prepare with AI-driven mock interviews, and land your perfect job faster than ever.
             </p>
             <Link
-              to="/IAM"
+              to={isAuthorized ? "/jobs" : "/IAM"} // Redirect based on auth state
               className="mr-6 inline-block items-center rounded-md bg-[#6366f1] px-8 py-4 text-center font-semibold text-white lg:mr-8 transition-transform hover:scale-105"
             >
-              Get Started
+              {isAuthorized ? "Find Jobs" : "Get Started"} {/* Text changes based on auth */}
             </Link>
           </div>
 
@@ -36,7 +43,7 @@ const Hero = () => {
             {[
               "Microsoft",
               "PayPal",
-              "Group",
+              "PayPal",
               "Chase",
               "Walmart",
             ].map((company, index) => (
@@ -49,7 +56,7 @@ const Hero = () => {
               >
                 <img
                   src={`https://firebasestorage.googleapis.com/v0/b/flowspark-1f3e0.appspot.com/o/Tailspark%20Images%2F${company}%20Logo.svg?alt=media&token=...`}
-                  alt=""
+                  alt={company}
                   className="inline-block h-9 transition-opacity hover:opacity-75"
                 />
               </li>
