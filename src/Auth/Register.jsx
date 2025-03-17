@@ -45,7 +45,7 @@ const Register = () => {
   
       setSuccess(true);
       toast.success("Registration successful!");
-      if (role === "candidate") { // Fixed undefined variable `userRole` to `role`
+      if (role === "candidate") {
         navigate("/candidateform");
       } else {
         navigate("/companyform");

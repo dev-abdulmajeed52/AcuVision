@@ -58,12 +58,12 @@ const Navbar = () => {
           {/* Right Side - Auth Buttons or Profile Icon */}
           <div className="hidden md:flex items-center space-x-3">
             {isAuthorized ? (
-              <button
-                onClick={() => console.log("Profile icon clicked")} // Hook up profile menu later
+              <Link
+                to={'/profile'}
                 className="text-black hover:text-[#6366f1] focus:outline-none"
               >
                 <User className="h-6 w-6" />
-              </button>
+              </Link>
             ) : (
               <>
                 <Link
