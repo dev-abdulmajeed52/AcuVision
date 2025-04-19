@@ -46,7 +46,7 @@ const Register = () => {
       setSuccess(true);
       toast.success("Registration successful!");
       if (role === "candidate") {
-        navigate("/candidateform");
+        navigate("/candidateData");
       } else {
         navigate("/companyform");
       }

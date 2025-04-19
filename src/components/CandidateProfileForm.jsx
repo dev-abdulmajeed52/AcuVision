@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import api from '../services/api';
 
 const CandidateProfileForm = () => {
@@ -18,6 +18,14 @@ const CandidateProfileForm = () => {
   });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [name, setName] = useState('')
+
+  useEffect (() => {
+    const Uname = localStorage.getItem('name');
+    setName(Uname)
+    })
+
+
 
   const handleInputChange = (e, index, type) => {
     const { name, value } = e.target;
