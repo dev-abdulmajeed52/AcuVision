@@ -16,7 +16,7 @@ const Login = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await api.post("/login", { email, password });
+      const response = await api.post("/auth/login", { email, password });
       if (response.status === 200) {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("name", response.data.user.name);
@@ -26,7 +26,7 @@ const Login = () => {
 
         if (role === "company") {
           navigate("/company");
-        } else if (role === "candidate") {
+        } else if (role === "applicant") {
           navigate("/");
         } else {
           navigate("/login");

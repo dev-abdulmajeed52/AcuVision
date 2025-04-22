@@ -14,6 +14,8 @@ import CompanyHome from './company/CompanyHome';
 import ProtectedRoute from './components/ProtectedRoute';
 import Profile from './pages/Profile';
 import CandidateProfileForm from './components/CandidateProfileForm';
+import Jobs from './components/Jobs';
+import Interview from './components/Interview';
 
 const App = () => {
   return (
@@ -29,6 +31,8 @@ const App = () => {
           <Route path="/companyform" element={<CompanyForm />} />
           <Route path="/candidateData" element={<CandidateProfileForm />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path='/jobs' element={<Jobs />} />
+          <Route path="/interview/:jobId" element={<Interview />} />
           <Route path='/company/*' element={
             <ProtectedRoute>
               <DashboardLayout/>
