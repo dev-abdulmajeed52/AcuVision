@@ -16,11 +16,14 @@ import Profile from './pages/Profile';
 import CandidateProfileForm from './components/CandidateProfileForm';
 import Jobs from './components/Jobs';
 import Interview from './components/Interview';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (
     <>
       <BrowserRouter>
+      <ToastContainer />
         <Routes>
           <Route index element={<Home />} />
           <Route path="/iam" element={<Role />} />

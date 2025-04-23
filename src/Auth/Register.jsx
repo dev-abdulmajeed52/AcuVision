@@ -17,6 +17,7 @@ const Register = () => {
 
   useEffect(() => {
     const storedRole = localStorage.getItem("selectedRole");
+    console.log(storedRole)
     setRole(storedRole);
   }, []);
 
@@ -25,40 +26,45 @@ const Register = () => {
     setLoading(true);
     setError(null);
     setSuccess(false);
+  
     try {
-      const response = await api.post("/register", {
+      const response = await api.post("/auth/register", {
         name,
         email,
         password,
         role,
       });
-      const { token } = response.data;
-      localStorage.setItem("token", token);
-      localStorage.setItem("role", response.data.user.role);
-      localStorage.setItem("name", name);
   
-      // Log the localStorage data after it's stored
-      console.log("Stored localStorage data:");
-      console.log("Token:", localStorage.getItem("token"));
-      console.log("Role:", localStorage.getItem("role"));
-      console.log("Name:", localStorage.getItem("name"));
+      console.log("Success response:", response); // Debug: Log full response
+  
+      const { user, msg } = response.data;
+  
+      // Save necessary user data to localStorage
+      localStorage.setItem("role", user.role);
+      localStorage.setItem("name", user.name);
+      localStorage.setItem("email", user.email);
+      localStorage.setItem("userId", user._id); // if needed
   
       setSuccess(true);
-      toast.success("Registration successful!");
-      if (role === "candidate") {
-        navigate("/candidateData");
-      } else {
-        navigate("/companyform");
-      }
+      toast.success(msg || "Registration successful!", { autoClose: 1500 });
+  
+      setTimeout(() => {
+        navigate("/login");
+      }, 1500);
     } catch (error) {
-      setError(error.message);
-      toast.error("Registration failed. Please try again.");
+      console.log("Error response:", error.response); // Debug: Log full error
+  
+      const errorMessage =
+        error.response?.data?.msg ||
+        error.message ||
+        "Registration failed. Please try again.";
+      setError(errorMessage);
+      toast.error(errorMessage, { autoClose: 5000 });
     } finally {
       setLoading(false);
     }
   };
   
-
   return (
     <div
       className="min-h-screen flex items-center justify-center bg-cover bg-center"
@@ -107,6 +113,9 @@ const Register = () => {
             {loading ? "Registering..." : "Register"}
           </button>
         </form>
+        {error && (
+          <p className="text-center text-sm text-red-600 mt-4">{error}</p>
+        )}
         <p className="text-center text-sm text-gray-600 mt-6">
           Already have an account?{" "}
           <a href="/login" className="text-indigo-600 hover:underline">

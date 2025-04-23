@@ -54,46 +54,37 @@ const Jobs = () => {
   )
 
   return (
-    <div className="bg-gray-50 min-h-screen font-sans">
-      {/* Header */}
-      <div className="bg-white p-4 flex justify-between items-center shadow-md">
-        <div className="flex items-center gap-2">
-          <img src="/svg/logo.svg" alt="Logo" className="h-8" />
-          <h1 className="text-2xl font-bold text-indigo-600">AcuVision</h1>
-        </div>
-        <div className="text-gray-700 font-medium">Hi, {userName}</div>
-      </div>
-
-      {/* Hero Section */}
+    <div className=" min-h-screen font-sans">
       <div
-        className="bg-cover bg-center py-20 px-4 text-center text-black"
+        className="bg-cover bg-center py-20 px-4 text-center text-white"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1502945015378-0e284ca1a5be?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
+            "url('https://images.unsplash.com/photo-1737931315560-57f1ba1dd87d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
         }}
       >
         <h2 className="text-5xl font-extrabold mb-4 drop-shadow-lg">
-          Find Your <span className="text-indigo-400">Dream Job</span>
+          Find Your <span className="text-indigo-200">Dream Job</span>
         </h2>
         <p className="text-lg font-light mb-8">
           Search for remote or local jobs with ease.
         </p>
         <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
-          <input
-            type="text"
-            placeholder="Job title or keyword"
-            className="px-4 py-2 rounded-full border border-gray-300 text-black w-64"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="City, state or zip"
-            className="px-4 py-2 rounded-full border border-gray-300 text-black w-64"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-          />
-          <button className="bg-indigo-600 text-white px-6 py-2 rounded-full hover:bg-indigo-700 transition">
+        <input
+  type="text"
+  placeholder="Job title or keyword"
+  className="bg-transparent border-b-2 border-white text-white placeholder-white px-4 py-2 w-64 focus:outline-none"
+  value={search}
+  onChange={(e) => setSearch(e.target.value)}
+/>
+<input
+  type="text"
+  placeholder="City, state or zip"
+  className="bg-transparent border-b-2 border-white text-white placeholder-white px-4 py-2 w-64 focus:outline-none"
+  value={location}
+  onChange={(e) => setLocation(e.target.value)}
+/>
+
+          <button className="bg-indigo-600 text-white px-6 py-2  hover:bg-indigo-700 transition">
             Find Jobs
           </button>
         </div>

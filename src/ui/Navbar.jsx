@@ -14,7 +14,7 @@ const Navbar = () => {
 
     const checkAuthorization = () => {
       const token = localStorage.getItem("token");
-      setIsAuthorized(!!token); // If token exists, user is 
+      setIsAuthorized(!!token);  
     };
 
     checkAuthorization();

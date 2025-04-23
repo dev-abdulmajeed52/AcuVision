@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const Role = () => {
-  const [selectedRole, setSelectedRole] = useState('Candidate');
+  const [selectedRole, setSelectedRole] = useState('applicant');
   const [isOpen, setIsOpen] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const roles = ['candidate', 'company'];
+  const roles = ['applicant', 'company'];
 
   useEffect(() => {
     setIsLoaded(true);
