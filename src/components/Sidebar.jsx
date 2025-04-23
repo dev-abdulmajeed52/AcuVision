@@ -40,7 +40,7 @@ const Sidebar = () => {
           </button>
           {openDropdown === 'subscriptions' && (
             <div className="pl-6">
-              <Link to="/feature" className="block py-2 px-4 rounded hover:bg-[#6366f1]">Job Post</Link>
+              <Link to="/company/create_job_post" className="block py-2 px-4 rounded hover:bg-[#6366f1]">Job Post</Link>
               <Link to="/subscription" className="block py-2 px-4 rounded hover:bg-[#6366f1]">Subscriptions</Link>
             </div>
           )}

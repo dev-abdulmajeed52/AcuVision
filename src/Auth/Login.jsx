@@ -19,6 +19,7 @@ const Login = () => {
       const response = await api.post("/auth/login", { email, password });
       if (response.status === 200) {
         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("userId", response.data.user._id);
         localStorage.setItem("name", response.data.user.name);
         localStorage.setItem("email", response.data.user.email);
         const { role, message } = response.data.user;

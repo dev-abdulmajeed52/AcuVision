@@ -18,12 +18,13 @@ import Jobs from './components/Jobs';
 import Interview from './components/Interview';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Create_Post from './company/Create_Post';
 
 const App = () => {
   return (
     <>
       <BrowserRouter>
-      <ToastContainer />
+        <ToastContainer />
         <Routes>
           <Route index element={<Home />} />
           <Route path="/iam" element={<Role />} />
@@ -38,10 +39,11 @@ const App = () => {
           <Route path="/interview/:jobId" element={<Interview />} />
           <Route path='/company/*' element={
             <ProtectedRoute>
-              <DashboardLayout/>
+              <DashboardLayout />
             </ProtectedRoute>
-            } >
+          } >
             <Route index element={<CompanyHome />} />
+            <Route path="create_job_post" element={<Create_Post />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from '../services/api'
+import { toast } from 'react-toastify'
 
 const Jobs = () => {
   const [jobs, setJobs] = useState([])
@@ -41,11 +42,11 @@ const Jobs = () => {
         },
       })
       setApplied(true)
-      alert('Application submitted successfully!')
+      toast.success('Application submitted successfully!')
       navigate(`/interview/${jobId}`)
     } catch (error) {
       console.error('Error applying for job:', error)
-      alert('Something went wrong. Please try again.')
+      toast.error('Failed to apply for the job. Please try again.')
     }
   }
 
@@ -69,24 +70,20 @@ const Jobs = () => {
           Search for remote or local jobs with ease.
         </p>
         <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
-        <input
-  type="text"
-  placeholder="Job title or keyword"
-  className="bg-transparent border-b-2 border-white text-white placeholder-white px-4 py-2 w-64 focus:outline-none"
-  value={search}
-  onChange={(e) => setSearch(e.target.value)}
-/>
-<input
-  type="text"
-  placeholder="City, state or zip"
-  className="bg-transparent border-b-2 border-white text-white placeholder-white px-4 py-2 w-64 focus:outline-none"
-  value={location}
-  onChange={(e) => setLocation(e.target.value)}
-/>
-
-          <button className="bg-indigo-600 text-white px-6 py-2  hover:bg-indigo-700 transition">
-            Find Jobs
-          </button>
+          <input
+            type="text"
+            placeholder="Job title or keyword"
+            className="bg-transparent border-b-2 border-white text-white placeholder-white px-4 py-2 w-64 focus:outline-none"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="City, state or zip"
+            className="bg-transparent border-b-2 border-white text-white placeholder-white px-4 py-2 w-64 focus:outline-none"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+          />
         </div>
       </div>
 
@@ -124,9 +121,8 @@ const Jobs = () => {
 
         {/* Right: Job Cards */}
         <div
-          className={`grid gap-6 ${
-            selectedJob ? 'lg:w-1/2' : 'w-full'
-          } max-h-[70vh] overflow-y-auto pr-2`}
+          className={`grid gap-6 ${selectedJob ? 'lg:w-1/2' : 'w-full'
+            } max-h-[70vh] overflow-y-auto pr-2`}
         >
           {filteredJobs.length > 0 ? (
             filteredJobs.map((job) => (
@@ -151,10 +147,10 @@ const Jobs = () => {
                 </p>
                 <div className="text-sm text-gray-500 space-y-1">
                   <p>
-                    <strong>Location:</strong> {job.location || 'Remote'}
+                    <strong>Location:</strong> {job.location}
                   </p>
                   <p>
-                    <strong>Type:</strong> Full Time
+                    <strong>Type:</strong> {job.type}
                   </p>
                   <p>
                     <strong>Salary:</strong>{' '}
