@@ -14,7 +14,7 @@ import CompanyHome from './company/CompanyHome';
 import ProtectedRoute from './components/ProtectedRoute';
 import Profile from './pages/Profile';
 import CandidateProfileForm from './components/CandidateProfileForm';
-import Jobs from './components/Jobs';
+import Jobs from './pages/Jobs';
 import Interview from './components/Interview';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
