@@ -60,8 +60,8 @@ const Jobs = () => {
   }
 
   const startInterview = () => {
-    document.cookie = `interviewData=${JSON.stringify(interviewData)}; path=/`
-    window.location.href = 'https://acu-interview.streamlit.app/'
+    const encodedData = encodeURIComponent(JSON.stringify(interviewData));
+    window.location.href = `https://acu-interview.streamlit.app/?data=${encodedData}`;
   }
 
   const filteredJobs = jobs.filter((job) =>
