@@ -71,7 +71,6 @@ const Jobs = () => {
 
   return (
     <div className="min-h-screen font-sans">
-      {/* Modal for interview confirmation */}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
